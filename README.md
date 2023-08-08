@@ -1,31 +1,24 @@
-## React Tutorial – The Beginners Guide to Learning React JS in 2020
 
-[To follow this React tutorial](https://ibaslogic.com/blog/react-tutorial-for-beginners/)
+## note: this is not what Subscript does in any way. Your work will not be used within Subscript, this is purely an interview project to understand how you work.
 
-### Clone the starter project
+Please include all relevant resources (loom, documents, etc) in the PR description.</strong></p>
 
-You can download or clone this project by running this command from your terminal:
+-[] Convert the app from class components to functional components
+- [] Add a separate table which has just the completed tasks
+- [] Let the user add tags (like home or work or important or morning) to the tasks. Show the tags (ideally with colors) so the user can see what tags a task has
+- [] Let the user assign the tasks to someone.
 
-```
-git clone https://github.com/Ibaslogic/simple-todo-app
-```
+#### Remember to talk through your decisions. Tell us about alternate approaches you're considering, and why you're picking the approach you are.
+ - here's what you'll be evaluated on
 
-This will create a directory in the name of the project folder.
+-[] Knowledgeability
 
-Once you have the project files and folders bootstrapped, open it with your text editor.
+-[] Ability to think through all cases: do you consider all the relevant parts
+-[] Code organization: how well organized your code is
+-[] An understanding of alternative approaches to the ones you pick, and the trade offs involved between those approaches
+-[] Speed: how quickly you work
+-[] Communication
 
-Next, switch inside the project directory and run:
+-[] How well you understand and follow the instructions
+-[] How well you explain your thoughts
 
-```
-npm install
-```
-
-This will install all the necessary dependencies in the local `node_modules` folder.
-
-Finally, start your development server by running:
-
-```
-npm start
-```
-
-You should see the app in your browser address bar at [http://localhost:3000](http://localhost:3000)

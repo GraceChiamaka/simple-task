@@ -2,7 +2,6 @@ import React from 'react';
 import "./style.css";
 
 const FormModal = ({ children }) => {
-    console.log('render input')
     return ( 
         <div className="ModalBackdrop">
             <div className="modal">

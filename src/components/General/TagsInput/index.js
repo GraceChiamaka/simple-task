@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { TagItem } from '../TagItem';
 import { AppContext } from '../../../context/AppContext';
-import {v4 as uuidv4} from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 import "./style.css";
 
 const colors = [
@@ -20,6 +20,8 @@ const TagInput = () => {
     const handleCreateTag = (ev) => {
         if (ev.key === 'Enter' || ev.keyCode === 13) {
             ev.preventDefault();
+            const duplicateTag = tags.includes(tagValue);
+            console.log(duplicateTag, '====')
             if (tagValue !== "") {
                 addTag({
                     title: tagValue,
@@ -28,7 +30,7 @@ const TagInput = () => {
                 });
                 setTagValue("");
             }
-        
+
         }
     }
 
@@ -44,12 +46,12 @@ const TagInput = () => {
             )
         }
     }
-   
+
     const getRandomColor = () => {
         const randomIndex = Math.floor(Math.random() * colors.length);
         return colors[randomIndex];
     }
-    return ( 
+    return (
         <div className="tag-input-container">
             {renderTags()}
             <input
@@ -60,7 +62,7 @@ const TagInput = () => {
                 onKeyDown={handleCreateTag}
             />
         </div>
-     );
+    );
 }
- 
-export  {TagInput};
+
+export { TagInput };

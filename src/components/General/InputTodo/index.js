@@ -1,16 +1,34 @@
 import React, { useState, useContext } from "react";
 import {TagInput, Select, Button} from '../../General';
 import FormModal from "./FormModal";
+import { v4 as uuidv4 } from "uuid";
 import { AppContext } from "../../../context/AppContext";
 import "./style.css"
 
+const users = [
+	{
+		id: uuidv4(),
+		name: 'Mark'
+	},
+	{
+		id: uuidv4(),
+		name: 'John'
+	},
+	{
+		id: uuidv4(),
+		name: 'Steve'
+	},
+	{
+		id: uuidv4(),
+		name: 'Emily'
+	},
+	
+]
 const InputTodo = () => {
 	const [title, setTitle] = useState("");
 	const { showModal, closeModal, addTodoItem, handleSelect } = useContext(AppContext);
 
-
 	const handleSubmit = e => {
-		console.log("submit is triggered");
 		e.preventDefault()
 		if (e.key !== "Enter") {
 			;
@@ -45,9 +63,7 @@ const InputTodo = () => {
 							<div className="form-item">
 								<Select placeholder="" onChange={handleSelect}>
 									<option>Assign to someone</option>
-									<option value="Chad">Chad</option>
-									<option value="Ayo">Ayo</option>
-									<option value="Blu">Blu</option>
+									{users.map(({ id, name}) => <option key={id}>{ name }</option>)}
 								</Select>
 							</div>
 							<div className="btn-container">

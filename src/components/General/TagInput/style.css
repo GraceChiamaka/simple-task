@@ -1,0 +1,48 @@
+.tag-container {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	min-height: 44px;
+	height: auto;
+	font-size: 14px;
+	padding: 8px 16px;
+	border-radius: 5px;
+	flex-wrap: wrap;
+	border: 1px solid #cecece;
+}
+.tag-item {
+	height: 28px;
+	border-radius: 5px;
+	border: none;
+	background: #cecece;
+	padding: 0 12px;
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+}
+.tag-container input {
+	border: none;
+	height: 100%;
+	flex: 1;
+	outline: none;
+}
+.error-text {
+	color: #ef1b00;
+	font-size: 12px;
+	font-weight: 500;
+}
+
+@media screen and (max-width: 769px) {
+	.tag-container {
+		height: auto;
+		padding: 10px 16px;
+		min-height: 44px;
+	}
+}
+@media screen and (max-width: 480px) {
+	.tag-container {
+		height: auto;
+		padding: 10px 16px;
+		min-height: 44px;
+	}
+}

@@ -1,5 +1,4 @@
-
-.btn{
+.btn {
 	border: none;
 	height: 40px;
 	align-items: center;
@@ -9,19 +8,26 @@
 	border-radius: 5px;
 	min-width: 100px;
 	cursor: pointer;
+	color: #1f1f1f;
+	font-weight: 500;
 }
-.btn.btn-default{
-	background: #038203;
-	color: #fff;
-	font-size: 14px;
-	outline: none;
-}
-
-.btn.btn-secondary{
+.btn.btn-default {
 	background: #f3f3f3;
 	color: #2c2c2c;
 }
-.btn.btn-danger{
+
+.btn.btn-danger {
 	background: #d35e0f;
-  	color: #fff;
+	color: #fff;
+}
+
+.btn.btn-success {
+	background: #038203;
+	color: #fff;
+}
+
+@media screen and (max-width: 480px) {
+	.btn {
+		width: 100%;
+	}
 }

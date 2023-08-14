@@ -41,5 +41,7 @@ export const ModalContent = styled.div`
 export const ModalHeading = styled.h3`
 	text-align: center;
 	margin-bottom: 18px;
+	font-size: ${({ theme }) => theme.fontSize.heading};
+	font-weight: 900;
 `;
 

@@ -4,7 +4,7 @@ const colors = {
 	},
 	secondary: {
 		100: "#FFAb2D",
-		200: "#E58A00",
+		200: "rgb(229, 138, 0)",
 		300: "#957AFF"
 	},
 	light: {

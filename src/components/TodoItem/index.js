@@ -56,11 +56,11 @@ const TodoItem = (props) => {
 			<form onSubmit={updateTag}>
 				<Input value={tagInfo.title} name="title" onChange={handleTagInfoChange} />
 				<ColorSelectContainer>
-					{colors.map((item) => <ColorSelect
-						key={item}
-						onClick={() => setTagInfo({ ...tagInfo, color: item })}
-						bgcolor={item}
-						active={tagInfo.color === item} />
+					{colors.map((color) => <ColorSelect
+						key={color}
+						onClick={() => setTagInfo({ ...tagInfo, color: color })}
+						bgcolor={color}
+						active={tagInfo.color === color} />
 					)}
 				</ColorSelectContainer>
 				<ButtonContainer>
@@ -94,7 +94,7 @@ const TodoItem = (props) => {
 					{tags &&
 						tags.length > 0 &&
 						tags.map(({ id, title, color }) => (
-							<TagItem key={id} id={id} text={title} color={color} onEdit={handleEditTag} />
+							<TagItem key={id} id={id} text={title} editable color={color} onEdit={handleEditTag} />
 						))}
 				</TagsContainer>
 

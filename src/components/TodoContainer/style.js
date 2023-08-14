@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 export const StyledHeader = styled.div`
-  	padding: 20px 0;
-	line-height: 2em;
+  	padding: ${({ theme }) => theme.spacing.double(1.5, 0)};
+	line-height: ${({ theme }) => theme.spacing.large};
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: 15px;
+	margin-bottom: ${({ theme }) => theme.spacing.medium};
 	h1{
 		font-weight: 900;
 		
@@ -27,6 +27,7 @@ export const StyledHeader = styled.div`
 export const ButtonContainer = styled.div`
 	display: flex;
 	justify-content: space-between;
+	margin-top: ${({ theme }) => theme.spacing.large};
 	${({ theme }) => theme.media.mobile}{
 		flex-direction: column;
 		button{

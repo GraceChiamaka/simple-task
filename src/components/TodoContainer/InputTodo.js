@@ -64,7 +64,7 @@ const InputTodo = () => {
 				<TagInput />
 			</FormItem>
 
-			<ButtonContainer >
+			<ButtonContainer>
 				<Button
 					text="Cancel"
 					variant="primary"

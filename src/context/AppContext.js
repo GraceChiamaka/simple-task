@@ -137,8 +137,7 @@ const AppContextProvider = (props) => {
 				todo.tags = todo.tags.map((_tag) => _tag.id === tagInfo.id ? { ...rest } : _tag);
 			}
 			return todo;
-		})
-
+		});
 		setTagsContainer([...updatedTag]);
 		setTodos(updateTodoWithTag)
 

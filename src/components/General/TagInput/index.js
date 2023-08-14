@@ -89,12 +89,12 @@ const TagInput = memo(() => {
 				disabled={tags.length === 5}
 			/>
 			<ColorSelectContainer>
-				{colors.map(item => (
+				{colors.map(color => (
 					<ColorSelect
-						key={item}
-						onClick={() => setTagValue({ ...tagValue, color: item })}
-						active={tagValue.color === item}
-						bgcolor={item} />
+						key={color}
+						onClick={() => setTagValue({ ...tagValue, color: color })}
+						active={tagValue.color === color}
+						bgcolor={color} />
 				)
 				)}
 			</ColorSelectContainer>

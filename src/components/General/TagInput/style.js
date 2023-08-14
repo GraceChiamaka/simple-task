@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   	display: flex;
 	align-items: center;
-	gap: 5px;
+	gap: ${({ theme }) => theme.spacing.custom(0.875)};
 	font-size: 14px;
 	height: ${({ theme }) => theme.spacing.input};
 	padding: ${({ theme }) => theme.spacing.double(0.5, 0.625)};

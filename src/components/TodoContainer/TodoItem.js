@@ -1,51 +1,58 @@
-import React, { useContext } from 'react';
-import { Avatar, Button, TagItem } from '../General';
+import React, { memo, useContext } from 'react';
+import { Avatar, Button, Checkbox, TagItem } from '../General';
 import { AppContext } from '../../context/AppContext';
-import './style.css';
+import { StyledTodoItem, TodoContent, TodoText, ItemBtnContainer, TodoTitle, TagsContainer } from './style';
+import { Svg } from '../../assets/images/svg';
+
+const { DeleteIcon, EditIcon } = Svg;
 
 const TodoItem = (props) => {
-	const { delTodo, handleChange } = useContext(AppContext);
-	const completedStyle = {
-		fontStyle: 'italic',
-		color: '#d35e0f',
-		opacity: 0.4,
-		textDecoration: 'line-through',
-	};
-
+	const { delTodo, handleChange, updateEditState, users } = useContext(AppContext);
 	const { completed, id, title, tags, assignedUser } = props.todo;
+
+	const getUsername = users.find((user) => user.id === assignedUser);
+
 	return (
-		<li className="todo-item">
-			<div className="todo-content">
-				<div className="task">
-					<input
+		<StyledTodoItem>
+			<TodoContent className="todo-content">
+				<TodoTitle>
+					<Checkbox
 						type="checkbox"
 						checked={completed}
 						onChange={() => handleChange(id)}
 					/>
 					{assignedUser && assignedUser !== '' && (
-						<Avatar username={assignedUser} />
+						<Avatar username={getUsername.name} />
 					)}
-					<p style={completed ? completedStyle : null}>{title}</p>
-				</div>
+					<TodoText completed={completed}>{title}</TodoText>
+				</TodoTitle>
 
-				<div className="tags-container">
+				<TagsContainer>
 					{tags &&
 						tags.length > 0 &&
 						tags.map(({ id, title, color }) => (
 							<TagItem key={id} text={title} color={color} />
 						))}
-				</div>
-				<div className="user-container"></div>
-			</div>
+				</TagsContainer>
+			</TodoContent>
+			<ItemBtnContainer>
+				<Button
+					variant="danger"
+					type="button"
+					icon={<img src={EditIcon} alt="edit icon" />}
+					onClick={() => updateEditState(props.todo)}
+				/>
+				<Button
+					variant="danger"
+					type="button"
+					// text="Remove"
+					icon={<img src={DeleteIcon} alt="delete icon" />}
+					onClick={() => delTodo(id)}
+				/>
+			</ItemBtnContainer>
 
-			<Button
-				variant="danger"
-				type="button"
-				text="Delete"
-				onClick={() => delTodo(id)}
-			></Button>
-		</li>
+		</StyledTodoItem >
 	);
 };
 
-export default TodoItem;
+export default memo(TodoItem);

@@ -1,31 +1,30 @@
-import React, { useState, useContext, memo } from 'react';
+import React, { useState, useContext } from 'react';
 import { AppContext } from '../../context/AppContext';
 import { Select, Button, TagInput, Input } from '../General';
-// import { v4 as uuidv4 } from 'uuid';
 import { ButtonContainer, FormContainer, FormItem } from './style';
 
 
 
-const InputTodo = () => {
-	const [title, setTitle] = useState('');
-	const { addTodoItem, closeModal, handleSelect, users } = useContext(AppContext);
+const EditInputTodo = () => {
+	const { closeModal, handleSelect, users, assignedUser, selectedTask, editTask } = useContext(AppContext);
+	const [title, setTitle] = useState(selectedTask.title);
 
 	const onChange = (e) => {
 		setTitle(e.target.value);
 	};
 
-	const handleSubmit = (ev) => {
+	const handleEdit = (ev) => {
 		ev.preventDefault();
 		if (ev.key !== 'Enter') {
 			if (title !== '') {
-				addTodoItem(title);
+				editTask(title)
 				setTitle('');
 			}
 		}
 	};
 
 	return (
-		<FormContainer onSubmit={handleSubmit}>
+		<FormContainer onSubmit={handleEdit}>
 			<FormItem>
 				<Input
 					type="text"
@@ -40,10 +39,10 @@ const InputTodo = () => {
 			</FormItem>
 
 			<FormItem >
-				<Select placeholder="Assign someone..." onChange={handleSelect}>
+				<Select placeholder="Assign someone..." defaultValue={assignedUser} value={assignedUser} onChange={handleSelect}>
 					<option>Assign someone...</option>
 					{users.map(({ id, name }) => (
-						<option key={id} value={id}>
+						<option key={id} value={id} selected={assignedUser === id}>
 							{name}
 						</option>
 					))}
@@ -66,4 +65,5 @@ const InputTodo = () => {
 		</FormContainer>
 	);
 };
-export default memo(InputTodo);
+
+export default EditInputTodo;

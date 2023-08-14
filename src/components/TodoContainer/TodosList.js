@@ -1,6 +1,7 @@
 import React, { memo, useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import TodoItem from "./TodoItem";
+import { StyledTaskItem } from './style';
 
 const TodosList = () => {
 	const { todos } = useContext(AppContext);
@@ -11,7 +12,7 @@ const TodosList = () => {
 	}
 	return (
 		<>
-			<div className="task-view">
+			<StyledTaskItem>
 				{checkTaskState() ? (
 					<div>Hurray! You have no uncompleted tasks</div>
 				)
@@ -21,15 +22,15 @@ const TodosList = () => {
 								<TodoItem key={todo.id} todo={todo} />
 							)
 					)}
-			</div>
+			</StyledTaskItem>
 
-			<div className="task-view">
+			<StyledTaskItem >
 				<h2>Completed Tasks</h2>
 				{todos.map(
 					(todo) =>
 						todo.completed && <TodoItem key={todo.id} todo={todo} />
 				)}
-			</div>
+			</StyledTaskItem>
 		</>
 	);
 };

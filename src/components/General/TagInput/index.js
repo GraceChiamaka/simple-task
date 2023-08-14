@@ -1,8 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, memo } from 'react';
 import { AppContext } from '../../../context/AppContext';
 import { v4 as uuidv4 } from 'uuid';
 import { TagItem } from '../TagItem';
-import "./style.css";
+import { isTagDuplicate } from '../../../utils';
+import { Container, ErrorText, ColorSelectContainer, ColorSelect } from "./style";
+import { Input } from '../Input';
 
 
 const colors = [
@@ -19,45 +21,39 @@ const getRandomColor = () => {
 	return colors[colorIndex];
 }
 
-const TagInput = () => {
-	const { tags, addTag } = useContext(AppContext);
-	const [tagValue, setTagValue] = useState('');
-
+const TagInput = memo(() => {
+	const { tags, addTagToTask, tagsContainer, addTagToContainer } = useContext(AppContext);
+	const [tagValue, setTagValue] = useState({
+		color: "",
+		value: ""
+	});
 	const [error, setError] = useState("");
 
+	const isTagExist = isTagDuplicate(tagValue.value, tags); // check if tag exist in a task
+	const isTagDuplicated = isTagDuplicate(tagValue.value, tagsContainer); // check if tag exist in the tagList
 
-	const isTagDuplicate = (value) => {
-		const trimmedValue = value.trim();
-		const duplicateTag = tags.find((item) => item.title.toLowerCase() === trimmedValue.toLowerCase());
-		return !!(duplicateTag);
+	const createNewTag = () => {
+		const newTag = {
+			title: tagValue.value.trim(),
+			id: uuidv4(),
+			color: tagValue.color === "" ? getRandomColor() : tagValue.color
+		}
+		addTagToContainer(newTag);
+		addTagToTask(newTag);
+	}
+	const handleInputChange = (ev) => {
+		const { value } = ev.target;
+		setTagValue({ ...tagValue, value })
 	}
 
-	const handleNewtag = (ev) => {
-
+	const handleInputTag = (ev) => {
 		if (ev.key === 'Enter' || ev.keyCode === 13) {
 			ev.preventDefault();
-
-			if (isTagDuplicate(tagValue)) {
-				setError(`${tagValue} tag already exists`);
-				setTagValue("")
-			}
-			if (tags.length === 5) {
-				setError("You cant add more than 5 tags");
-			}
-
-			if (tagValue !== "" && !isTagDuplicate(tagValue)) {
-				addTag({
-					title: tagValue.trim(),
-					id: uuidv4(),
-					color: getRandomColor()
-				});
-				setTagValue("");
-				if (error !== "") setError("")
-			}
+			validateTag();
 		}
 	}
 
-	const renderTags = () => {
+	const renderTags = (tags) => {
 		if (tags.length > 0) {
 			return tags.map(({ title, id, color }) => <TagItem
 				key={id}
@@ -69,24 +65,51 @@ const TagInput = () => {
 		}
 	}
 
+	const validateTag = () => {
+		if (isTagExist) {
+			setError(`${tagValue.value} tag already exists`);
+			setTagValue({ color: "", value: "" })
+		}
+		if (tags.length === 5) {
+			setError("You cant add more than 5 tags");
+		}
+		if (!isTagDuplicated) {
+			createNewTag();
+			setTagValue({ color: "", value: "" });
+		}
+		if (isTagDuplicated && !isTagExist) {
+			addTagToTask(isTagDuplicated)
+		}
+		if (error !== "") setError("")
+	}
+
 	return (
 		<>
-			<div className='tag-container'>
-				{renderTags()}
+			<Input
+				placeholder='Enter a tag...'
+				onChange={handleInputChange}
+				value={tagValue.value}
+				onKeyDown={handleInputTag}
+				disabled={tags.length === 5}
+			/>
+			<ColorSelectContainer>
+				{colors.map(item => (
+					<ColorSelect
+						key={item}
+						onClick={() => setTagValue({ ...tagValue, color: item })}
+						active={tagValue.color === item}
+						bgColor={item} />
+				)
+				)}
+			</ColorSelectContainer>
 
-				<input
-					placeholder='Enter a tag...'
-					onChange={({ target: { value } }) => setTagValue(value)}
-					value={tagValue}
-					onKeyDown={handleNewtag}
-					disabled={tags.length === 5}
-				/>
-
-			</div>
-			<p className='error-text'>{error}</p>
+			{
+				tags.length > 0 && <Container>{renderTags(tags)}</Container>
+			}
+			<ErrorText>{error}</ErrorText>
 		</>
 
 	);
-}
+})
 
 export { TagInput };

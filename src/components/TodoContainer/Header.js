@@ -1,37 +1,32 @@
-import React, { useContext } from 'react';
+import React, { memo, useContext } from 'react';
 import { AppContext } from '../../context/AppContext';
 import { Button, Modal } from '../General';
-import { Svg } from '../assets/svg';
+import { Svg } from '../../assets/images/svg';
 import InputTodo from './InputTodo';
-import './style.css';
+import EditInputTodo from './EditInputTodo';
+import { StyledHeader } from './style';
 
 const { PlusIcon } = Svg;
 
 const Header = () => {
-	const { openModal, showModal } = useContext(AppContext);
+	const { openModal, showModal, isEditing } = useContext(AppContext);
 
-	const headerText = (
-		<>
-			<img src={PlusIcon} alt="plus icon" /> <span>Add New Task</span>
-		</>
-	);
 	return (
-		<header className="header">
+		<StyledHeader>
 			<h1>Simple Todo App</h1>
 			<Button
 				onClick={openModal}
-				variant="default"
-				showIcon
-				icon={PlusIcon}
-				text={headerText}
+				variant="white"
+				icon={<img src={PlusIcon} alt="plus icon" />}
+				text="Add New Task"
 			/>
-			{showModal && (
+			{showModal || isEditing ? (
 				<Modal>
-					<InputTodo />
+					{isEditing ? <EditInputTodo /> : <InputTodo />}
 				</Modal>
-			)}
-		</header>
+			) : null}
+		</StyledHeader>
 	);
 };
 
-export default Header;
+export default memo(Header);

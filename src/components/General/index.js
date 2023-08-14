@@ -7,3 +7,4 @@ export { Select } from './Select';
 export { TagInput } from './TagInput';
 export { Avatar } from './Avatar';
 export { TagItem } from './TagItem';
+export { Input, Checkbox } from './Input';

@@ -1,13 +1,14 @@
 import React from 'react';
 import TodosList from './TodosList';
 import Header from './Header';
+import { PageContainer } from '../container';
 
 const TodoContainer = () => {
 	return (
-		<div className="container">
+		<PageContainer>
 			<Header />
 			<TodosList />
-		</div>
+		</PageContainer>
 	);
 };
 export default TodoContainer;

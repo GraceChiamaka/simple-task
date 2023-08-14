@@ -1,11 +1,11 @@
 import React from 'react';
-import "./style.css";
+import { StyledAvatar } from "./style.js";
 
 const Avatar = ({ username }) => {
 	return (
-		<span className='user-avatar'>
+		<StyledAvatar className='user-avatar'>
 			{username ? username[0] : ""}
-		</span>
+		</StyledAvatar>
 	);
 }
 

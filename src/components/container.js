@@ -27,4 +27,34 @@ export const PageContainer = styled.div`
     padding: 0 24px;
   };
 `;
+export const FormLabel = styled.p`
+  color:${({ theme }) => theme.colors.dark[400]};
+  font-size: ${({ theme }) => theme.fontSize.small};
 
+`;
+
+
+export const ColorSelectContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: ${({ theme }) => theme.spacing.double(1, 0)};
+`;
+
+export const ColorSelect = styled.span`
+	width: ${({ theme }) => theme.spacing.large};
+	height: ${({ theme }) => theme.spacing.large};
+	border-radius: ${({ theme }) => theme.borderRadius.circle};
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	&::after{
+		content:"";
+		width: ${({ theme }) => theme.spacing.medium};
+		height: ${({ theme }) => theme.spacing.medium};
+		border-radius: ${({ theme }) => theme.borderRadius.circle};
+		background: ${({ bgcolor }) => bgcolor};
+	}
+	cursor: pointer;
+	border:${({ theme, bgcolor, active }) => active ? theme.borders.custom("2px", bgcolor) : "none"};
+`;

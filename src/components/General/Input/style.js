@@ -22,7 +22,7 @@ export const StyledCheckbox = styled.input`
 	border: ${({ theme }) => theme.borders.custom("1px", theme.colors.dark[10])};
 	background: ${({ theme }) => theme.colors.light[100]};
 	border-radius: ${({ theme }) => theme.borderRadius.default};
-	
+	cursor: pointer;
 	&:checked{
 		background:${({ theme }) => theme.colors.blue[100]}; 
 	}

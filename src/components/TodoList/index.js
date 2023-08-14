@@ -1,6 +1,6 @@
 import React, { memo, useContext } from "react";
 import { AppContext } from "../../context/AppContext";
-import TodoItem from "./TodoItem";
+import TodoItem from "../TodoItem";
 import { StyledTaskItem } from './style';
 
 const TodosList = () => {
@@ -8,7 +8,7 @@ const TodosList = () => {
 
 	const checkTaskState = () => {
 		const tasks = todos.filter((todo) => todo.completed === false);
-		return ((tasks.length === 0))
+		return (tasks.length === 0);
 	}
 	return (
 		<>

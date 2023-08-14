@@ -6,17 +6,19 @@ import { Svg } from '../../../assets/images/svg';
 const { CloseIcon } = Svg;
 
 
-const TagItem = ({ text, id, color = "", closable }) => {
+const TagItem = ({ text, id, color = "", onEdit, closable }) => {
     const { handleDeleteTag } = useContext(AppContext);
-
-    const TagStyle = {
-        background: color !== "" ? color : "#f4f4f4"
-    }
-
     return (
-        <StyledTag className='tag-item' style={TagStyle}>
+        <StyledTag bgcolor={color} onClick={() => onEdit(id)}>
             <span>{text}</span>
-            {closable && <button type="button" onClick={() => handleDeleteTag(id)}><img src={CloseIcon} alt="close icon" /></button>}
+            {closable && <button
+                type="button"
+                onClick={(ev) => {
+                    ev.stopPropagation();
+                    handleDeleteTag(id)
+                }}>
+                <img src={CloseIcon} alt="close icon" />
+            </button>}
         </StyledTag>
     );
 }

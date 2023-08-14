@@ -9,7 +9,9 @@ export const StyledTag = styled.div`
 	gap: 4px;
 	font-size: 12px;
 	height:28px;
-	color: #1f1f1f;
+	background: ${({ theme, bgcolor }) => bgcolor === "" ? theme.colors.neutral[300] : bgcolor};
+	color: ${({ theme }) => theme.colors.light[100]};
+	z-index: 100;
 
 	button{
 		width: 15px;

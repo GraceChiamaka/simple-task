@@ -1,5 +1,5 @@
 import React from 'react';
-import TodosList from './TodosList';
+import TodosList from '../TodoList';
 import Header from './Header';
 import { PageContainer } from '../container';
 

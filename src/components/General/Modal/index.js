@@ -1,13 +1,11 @@
-import React, { useContext } from 'react';
-import { AppContext } from '../../../context/AppContext';
+import React from 'react';
 import { Container, ModalWrapper, ModalContent, ModalHeading } from './style';
 
-const Modal = ({ children }) => {
-	const { isEditing } = useContext(AppContext);
+const Modal = ({ modalHeading = "", children }) => {
 	return (
 		<Container>
 			<ModalWrapper>
-				<ModalHeading>Please {isEditing ? "update" : "add"} to-dos item(s) through the input field</ModalHeading>
+				<ModalHeading>{modalHeading}</ModalHeading>
 				<ModalContent>
 					{children}
 				</ModalContent>

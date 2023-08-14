@@ -3,18 +3,10 @@ import { AppContext } from '../../../context/AppContext';
 import { v4 as uuidv4 } from 'uuid';
 import { TagItem } from '../TagItem';
 import { isTagDuplicate } from '../../../utils';
-import { Container, ErrorText, ColorSelectContainer, ColorSelect } from "./style";
+import { Container, ErrorText } from "./style";
 import { Input } from '../Input';
-
-
-const colors = [
-	"#98B9F5",
-	"#69F58A",
-	"#E7F567",
-	"#F5CD76",
-	"#F5737E",
-	"#E9F01D"
-];
+import { ColorSelectContainer, ColorSelect } from '../../container';
+import { colors } from '../../../utils/color';
 
 const getRandomColor = () => {
 	const colorIndex = Math.floor(Math.random() * colors.length);
@@ -41,11 +33,14 @@ const TagInput = memo(() => {
 		addTagToContainer(newTag);
 		addTagToTask(newTag);
 	}
+
+	// stores value of input on change
 	const handleInputChange = (ev) => {
 		const { value } = ev.target;
 		setTagValue({ ...tagValue, value })
 	}
 
+	// create tag
 	const handleInputTag = (ev) => {
 		if (ev.key === 'Enter' || ev.keyCode === 13) {
 			ev.preventDefault();
@@ -59,6 +54,7 @@ const TagInput = memo(() => {
 				key={id}
 				id={id}
 				text={title}
+				onEdit={() => console.log('clicked')}
 				color={color}
 				closable
 			/>)
@@ -66,18 +62,18 @@ const TagInput = memo(() => {
 	}
 
 	const validateTag = () => {
-		if (isTagExist) {
+		if (tagValue.value !== "" && isTagExist) {
 			setError(`${tagValue.value} tag already exists`);
 			setTagValue({ color: "", value: "" })
 		}
 		if (tags.length === 5) {
 			setError("You cant add more than 5 tags");
 		}
-		if (!isTagDuplicated) {
+		if (tagValue.value !== "" && !isTagDuplicated) {
 			createNewTag();
 			setTagValue({ color: "", value: "" });
 		}
-		if (isTagDuplicated && !isTagExist) {
+		if (tagValue.value !== "" && isTagDuplicated && !isTagExist) {
 			addTagToTask(isTagDuplicated)
 		}
 		if (error !== "") setError("")
@@ -98,7 +94,7 @@ const TagInput = memo(() => {
 						key={item}
 						onClick={() => setTagValue({ ...tagValue, color: item })}
 						active={tagValue.color === item}
-						bgColor={item} />
+						bgcolor={item} />
 				)
 				)}
 			</ColorSelectContainer>

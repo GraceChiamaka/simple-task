@@ -15,7 +15,8 @@ const colors = {
 		50: "rgba(0, 21, 46, 0.05)",
 		100: "#00152E",
 		200: "#004025",
-		300: "rgba(0, 21, 46, 0.03)"
+		300: "rgba(0, 21, 46, 0.03)",
+		400: "rgba(0, 21, 46, 0.40)"
 	},
 	neutral: {
 		300: "#F3F3F3"
@@ -35,7 +36,6 @@ const colors = {
 	}
 
 }
-
 
 
 const customSpacing = (val) => `${val}rem`;

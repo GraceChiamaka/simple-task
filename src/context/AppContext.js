@@ -1,6 +1,5 @@
 import React, { createContext, useMemo, useState, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-// import { useTags, useTodo } from '../hooks/useTags';
 
 const INITIAL_USERS_STATE = [
 	{
@@ -20,11 +19,30 @@ const INITIAL_USERS_STATE = [
 		name: 'Blake',
 	},
 ];
+const INITIAL_TODOS_STATE = [
+	{
+		id: uuidv4(),
+		title: "Setup development environment",
+		completed: true,
+		assignedUser: "",
+	},
+	{
+		// id: uuid.v4(),
+		id: uuidv4(),
+		title: "Develop website and add content",
+		completed: false,
+		assignedUser: "",
+	},
+	{
+		// id: uuid.v4(),
+		id: uuidv4(),
+		title: "Deploy to live server",
+		completed: false,
+		assignedUser: "",
+	},
+]
 
-export const AppContext = createContext({
-	users: INITIAL_USERS_STATE,
-	todos: []
-});
+export const AppContext = createContext({});
 
 const AppContextProvider = (props) => {
 	const [showModal, setShowModal] = useState(false);
@@ -34,35 +52,13 @@ const AppContextProvider = (props) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [selectedTask, setSelectedTask] = useState();
 	const [users] = useState(INITIAL_USERS_STATE);
-	const [todos, setTodos] = useState([
-		{
-			// id: uuid.v4(),
-			id: uuidv4(),
-			title: "Setup development environment",
-			completed: true,
-			assignedUser: "",
-		},
-		{
-			// id: uuid.v4(),
-			id: uuidv4(),
-			title: "Develop website and add content",
-			completed: false,
-			assignedUser: "",
-		},
-		{
-			// id: uuid.v4(),
-			id: uuidv4(),
-			title: "Deploy to live server",
-			completed: false,
-			assignedUser: "",
-		},
-	])
+	const [todos, setTodos] = useState([...INITIAL_TODOS_STATE]);
 
 	const openModal = () => setShowModal(true);
-	const closeModal = () => {
+	const closeModal = useCallback(() => {
+		resetState()
 		setShowModal(false);
-		setIsEditing(false);
-	};
+	}, []);
 
 	const delTodo = useCallback((id) => {
 		setTodos(
@@ -90,7 +86,7 @@ const AppContextProvider = (props) => {
 		setTags([]);
 		setAssignedUser("");
 		closeModal();
-	}, [assignedUser, tags, todos]);
+	}, [assignedUser, tags, todos, closeModal]);
 
 	const addTagToContainer = useCallback((value) => {
 		setTagsContainer([...tagsContainer, value]);
@@ -107,6 +103,7 @@ const AppContextProvider = (props) => {
 		setSelectedTask(task);
 		setTags(task.tags ? task.tags : []);
 		setAssignedUser(task.assignedUser);
+
 	}, [isEditing]);
 
 	const handleDeleteTag = useCallback((tagId) => {
@@ -122,8 +119,30 @@ const AppContextProvider = (props) => {
 		const newTodo = { ...selectedTask, title, tags, assignedUser };
 		const updatedTodo = todos.map((todo) => todo.id === selectedTask.id ? newTodo : todo);
 		setTodos(updatedTodo);
-		closeModal()
-	}, [selectedTask, todos, assignedUser, tags])
+		closeModal();
+	}, [selectedTask, todos, assignedUser, tags, closeModal])
+
+	const resetState = () => {
+		setTags([])
+		setAssignedUser("");
+		setIsEditing(false);
+		setSelectedTask()
+	}
+
+	const saveUpdatedTag = useCallback((tagInfo) => {
+		const { taskId, ...rest } = tagInfo;
+		const updatedTag = tagsContainer.map((_tag) => _tag.id === tagInfo.id ? { ...rest } : _tag);
+		const updateTodoWithTag = todos.filter((todo) => {
+			if (todo.id === taskId) {
+				todo.tags = todo.tags.map((_tag) => _tag.id === tagInfo.id ? { ...rest } : _tag);
+			}
+			return todo;
+		})
+
+		setTagsContainer([...updatedTag]);
+		setTodos(updateTodoWithTag)
+
+	}, [tagsContainer, todos])
 
 
 	const value = useMemo(() => ({
@@ -145,7 +164,8 @@ const AppContextProvider = (props) => {
 		addTagToTask,
 		handleDeleteTag,
 		addTagToContainer,
-		editTask
+		editTask,
+		saveUpdatedTag
 	}), [
 		todos,
 		users,
@@ -162,7 +182,9 @@ const AppContextProvider = (props) => {
 		addTagToTask,
 		handleDeleteTag,
 		addTagToContainer,
-		editTask
+		editTask,
+		closeModal,
+		saveUpdatedTag
 	])
 
 	return (

@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyledInput } from './style';
-import { StyledCheckbox } from './style';
+import { StyledInput, StyledCheckbox } from './style';
 
 const Input = ({ placeholder = "", ...rest }) => {
 	return (

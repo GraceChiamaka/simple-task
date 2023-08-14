@@ -7,8 +7,6 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from "./theme";
 import GlobalStyles from './theme/GlobalStyles';
 
-import "./App.css";
-
 const App = () => {
 	return (
 		<AppContextProvider>

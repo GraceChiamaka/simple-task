@@ -1,11 +1,11 @@
 import React from 'react';
-import "./style.css"
+import { StyledSelect } from "./style.js"
 
 const Select = ({ placeholder = "", onChange, children }) => {
 	return (
-		<select className='input-select' placeholder={placeholder} onChange={onChange}>
+		<StyledSelect placeholder={placeholder} onChange={onChange}>
 			{children}
-		</select>
+		</StyledSelect>
 	);
 }
 

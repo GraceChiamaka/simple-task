@@ -1,30 +1,12 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, } from 'react';
 import { AppContext } from '../../context/AppContext';
-import { Select, Button, TagInput } from '../General';
-import { v4 as uuidv4 } from 'uuid';
-
-const users = [
-	{
-		id: uuidv4(),
-		name: 'John',
-	},
-	{
-		id: uuidv4(),
-		name: 'Steve',
-	},
-	{
-		id: uuidv4(),
-		name: 'Emily',
-	},
-	{
-		id: uuidv4(),
-		name: 'Blake',
-	},
-];
+import { Select, Button, TagInput, Input } from '../General';
+import { FormLabel } from '../container';
+import { ButtonContainer, FormContainer, FormItem } from './style';
 
 const InputTodo = () => {
-	const [title, setTitle] = useState('');
-	const { addTodoItem, closeModal, handleSelect } = useContext(AppContext);
+	const { addTodoItem, closeModal, handleSelect, users, isEditing, editTask, assignedUser, selectedTask } = useContext(AppContext);
+	const [title, setTitle] = useState(isEditing ? selectedTask.title : "");
 
 	const onChange = (e) => {
 		setTitle(e.target.value);
@@ -32,20 +14,24 @@ const InputTodo = () => {
 
 	const handleSubmit = (ev) => {
 		ev.preventDefault();
-		if (ev.key !== 'Enter') {
-			if (title !== '') {
+		// if (ev.key !== 'Enter') {
+		if (title !== '') {
+			if (isEditing) {
+				editTask(title)
+			} else {
 				addTodoItem(title);
-				setTitle('');
 			}
+			setTitle('');
+			// }
 		}
 	};
 
 	return (
-		<form onSubmit={handleSubmit} className="form-container">
-			<div className="form-item">
-				<input
+		<FormContainer onSubmit={handleSubmit}>
+			<FormItem>
+				<FormLabel>Title</FormLabel>
+				<Input
 					type="text"
-					className="input-text"
 					placeholder="Add todo..."
 					value={title}
 					onKeyDown={(e) => {
@@ -54,33 +40,40 @@ const InputTodo = () => {
 					name="title"
 					onChange={onChange}
 				/>
-			</div>
+			</FormItem>
 
-			<div className="form-item">
-				<TagInput />
-			</div>
-
-			<div className="form-item">
-				<Select placeholder="Assign someone..." onChange={handleSelect}>
+			<FormItem>
+				<FormLabel>Assign Task</FormLabel>
+				<Select
+					placeholder="Assign someone..."
+					onChange={handleSelect}
+					defaultValue={isEditing ? assignedUser : ''}
+					value={assignedUser}
+				>
 					<option>Assign someone...</option>
 					{users.map(({ id, name }) => (
-						<option key={id} value={name}>
+						<option key={id} value={id} >
 							{name}
 						</option>
 					))}
 				</Select>
-			</div>
+			</FormItem>
 
-			<div className="btn-container">
+			<FormItem>
+				<FormLabel>Label</FormLabel>
+				<TagInput />
+			</FormItem>
+
+			<ButtonContainer>
 				<Button
 					text="Cancel"
-					variant="default"
+					variant="primary"
 					type="button"
 					onClick={closeModal}
 				/>
 				<Button type="submit" variant="success" text="Submit" />
-			</div>
-		</form>
+			</ButtonContainer>
+		</FormContainer>
 	);
 };
 export default InputTodo;

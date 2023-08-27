@@ -1,21 +1,15 @@
 import React from 'react';
-import "./style.css";
+import { StyledButton } from './style'
 
-const Button = ({ type = "button", text = "", variant = "default", onClick }) => {
-	const renderClassName = () => {
-		if (variant === "default") {
-			return "btn-default"
-		} else if (variant === "success") {
-			return "btn-success"
-		}
-		return "btn-danger"
-	}
+const Button = ({ type = "button", text = "", variant = "primary", icon, onClick }) => {
+
 	return (
-		<button
+		<StyledButton
 			type={type}
-			className={"btn " + (renderClassName())}
 			onClick={onClick}
-		>{text}</button>
+			variant={variant}
+			role="button"
+		>{icon && icon} {text !== "" && <span>{text}</span>}</StyledButton>
 	);
 }
 

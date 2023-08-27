@@ -1,16 +1,16 @@
 import React from 'react';
-import "./style.css"
+import { Container, ModalWrapper, ModalContent, ModalHeading } from './style';
 
-const Modal = ({ children }) => {
+const Modal = ({ modalHeading = "", children }) => {
 	return (
-		<div className='modal-backdrop'>
-			<div className='modal'>
-				<h3 className="modal-heading">Please add to-dos item(s) through the input field</h3>
-				<div className="modal-content">
+		<Container>
+			<ModalWrapper>
+				<ModalHeading>{modalHeading}</ModalHeading>
+				<ModalContent>
 					{children}
-				</div>
-			</div>
-		</div>
+				</ModalContent>
+			</ModalWrapper>
+		</Container>
 	);
 }
 

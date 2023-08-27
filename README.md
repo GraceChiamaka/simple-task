@@ -1,21 +1,31 @@
+## React Tutorial – The Beginners Guide to Learning React JS in 2020
 
-### This is purely an interview project to understand how you work.
-Please include all relevant resources (loom, documents, etc) in the PR description.</strong></p>
+[To follow this React tutorial](https://ibaslogic.com/blog/react-tutorial-for-beginners/)
 
--[] Convert the app from class components to functional components
--[] Add a separate table which has just the completed tasks
--[] Let the user add tags (like home or work or important or morning) to the tasks. Show the tags (ideally with colors) so the user can see what tags a task has
--[] Let the user assign the tasks to someone.
+### Clone the starter project
 
-#### Remember to talk through your decisions. Tell us about alternate approaches you're considering, and why you're picking the approach you are.
- 
-- here's what you'll be evaluated on
+You can download or clone this project by running this command from your terminal:
 
--[] Knowledgeability
--[] Ability to think through akll cases: do you consider all the relevant parts
--[] Code organization: how well organized your code is
--[] An understanding of alternative approaches to the ones you pick, and the trade offs involved between those approaches
--[] Speed: how quickly you work
--[] Communication
--[] How well you understand and follow the instructions
--[] How well you explain your thoughts
+```
+git clone https://github.com/Ibaslogic/simple-todo-app
+```
+
+This will create a directory in the name of the project folder.
+
+Once you have the project files and folders bootstrapped, open it with your text editor.
+
+Next, switch inside the project directory and run:
+
+```
+npm install
+```
+
+This will install all the necessary dependencies in the local `node_modules` folder.
+
+Finally, start your development server by running:
+
+```
+npm start
+```
+
+You should see the app in your browser address bar at [http://localhost:3000](http://localhost:3000)

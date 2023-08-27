@@ -1,14 +1,16 @@
 import React from 'react';
-import "./style.css";
+import { StyledButton } from './style'
 
-const Button = ({ type="button", text="", variant="default", onClick}) => {
-	return ( 
-		<button
+const Button = ({ type = "button", text = "", variant = "primary", icon, onClick }) => {
+
+	return (
+		<StyledButton
 			type={type}
-			className={"btn " + (variant === "default" ? "btn-default" : variant === "danger"? "btn-danger": "btn-secondary")}
 			onClick={onClick}
-		>{ text }</button>
-	 );
+			variant={variant}
+			role="button"
+		>{icon && icon} {text !== "" && <span>{text}</span>}</StyledButton>
+	);
 }
- 
-export {Button};
+
+export { Button };

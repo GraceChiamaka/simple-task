@@ -1,12 +1,12 @@
 import React from 'react';
-import "./style.css";
+import { StyledSelect } from "./style.js"
 
-const Select = ({onChange, children}) => {
-	return ( 
-		<select className='custom-select' onChange={onChange}>
+const Select = ({ placeholder = "", onChange, children }) => {
+	return (
+		<StyledSelect placeholder={placeholder} onChange={onChange}>
 			{children}
-		</select>
-	 );
+		</StyledSelect>
+	);
 }
- 
-export  {Select};
+
+export { Select };

@@ -1,9 +1,10 @@
 
+// export General components here 
 
+export { Modal } from './Modal';
 export { Button } from './Button';
-export { Header } from './Header';
-export { InputTodo } from './InputTodo';
-export { TagItem } from './TagItem';
-export { TagInput } from './TagsInput';
 export { Select } from './Select';
-export {Avatar} from './Avatar'
+export { TagInput } from './TagInput';
+export { Avatar } from './Avatar';
+export { TagItem } from './TagItem';
+export { Input, Checkbox } from './Input';
